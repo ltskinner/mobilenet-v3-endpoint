@@ -1,0 +1,11 @@
+
+# generals
+numpy
+pandas
+
+# models
+tensorflow
+tflite-support
+
+# app
+

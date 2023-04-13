@@ -90,6 +90,7 @@ def index():
         filename = secure_filename(file.filename)
         print('filename:', filename)
 
+
         img = Image.open(file.stream)
 
         with BytesIO() as buf:
@@ -97,8 +98,7 @@ def index():
             image_bytes = buf.getvalue()
             encoded_string = base64.b64encode(image_bytes).decode()       
 
-            tensor_image = get_tensor_image_from_buf(image_bytes)
-
+        tensor_image = get_tensor_image_from_buf(image_bytes)
         pred = classify_tensor_image(tensor_image)
         print(pred)
         pred_name, pred_score = unpack_top_pred_name_score(pred)
@@ -107,6 +107,9 @@ def index():
         pred_score = f"Prediction Score: {pred_score}"
 
         img_data = f"data:image/jpeg;base64,{encoded_string}"
+
+        if len(filename) > 18:
+            filename = f'...{filename[-18:]}'
         return render_template(
             'index.html',
             status_msg=f"Successfully uploaded: `{filename}`",
@@ -116,8 +119,25 @@ def index():
     
     print('Not allowed file:', file.filename)
     return redirect(request.url)
-	
 
+
+
+@application.route("/predict", methods=['POST'])
+def predict():
+
+    result_dict = {}
+    if not request.json or 'image_b64' not in request.json:
+        result_dict['result'] = 'Error processing request'
+        return result_dict
+
+    im_b64 = request.json['image_b64']
+
+    # convert it into bytes  
+    image_bytes = base64.b64decode(im_b64.encode('utf-8'))
+    tensor_image = get_tensor_image_from_buf(image_bytes)
+    pred = classify_tensor_image(tensor_image)
+
+    return pred
 
 """
 @application.route("/")

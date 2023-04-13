@@ -8,7 +8,19 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-  
+  <style>
+    .container {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+    }
+    .left-right-div {
+      width: 50vw
+    }
+    img {
+      width:100%;
+    }
+  </style>
 </head>
 <body>
 
@@ -18,6 +30,8 @@
 </div>
   
 <div class="container">
+  <div class="left-right-div">
+    <h2>Manual Workflow</h2>
     <h4>{{ status_msg }}</h4>
     <br>
     <h4>{{ pred_name }}</h4>
@@ -31,6 +45,10 @@
     <img src="{{ img_data }}" id="img-upload" alt="img_data" class="img-upload"/>
     <br>
     <br>
+  </div>
+  <div class="left-right-div">
+    <h2>Request-driven Workflow</h2>
+  </div>
 
 </div>
 </body>

@@ -17,15 +17,23 @@ options = vision.ImageClassifierOptions(base_options=base_options, classificatio
 classifier = vision.ImageClassifier.create_from_options(options)
 
 
-
-def get_tensor_image():
+def get_random_image_path():
     shark_image_path = './data/shutterstock_derek_heasley_great_hammerhead_shark.jpg'
     pheasant_image_path = './data/pheasant.jpg'
+    ibex_image_path = './data/ibex.jpg'
 
     image_path = random.choice([
         shark_image_path,
-        pheasant_image_path
+        pheasant_image_path,
+        ibex_image_path
     ])
+    return image_path
+
+
+
+def get_tensor_image():
+    
+    image_path = get_random_image_path()
 
     # https://www.tensorflow.org/lite/api_docs/python/tflite_support/task/vision/TensorImage
     tensor_image = vision.TensorImage.create_from_file(image_path)

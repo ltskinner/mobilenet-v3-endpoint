@@ -108,6 +108,6 @@ def unpack_top_pred_name_score(result_dict):
 
 if __name__ == '__main__':
     tensor_image = get_tensor_image()
-    result = classify(tensor_image)
+    result = classify_tensor_image(tensor_image)
     print('-----------------')
     print(result)

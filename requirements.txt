@@ -8,4 +8,5 @@ tensorflow
 tflite-support
 
 # app
-
+Flask
+Pillow

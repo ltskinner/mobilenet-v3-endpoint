@@ -32,8 +32,14 @@ def get_tensor_image():
     return tensor_image
 
 
+def get_tensor_image_from_buf(buf):
+    tensor_image = vision.TensorImage.create_from_buffer(buf)
+    return tensor_image
 
-def classify(tensor_image):
+
+
+
+def classify_tensor_image(tensor_image):
     classification_result = classifier.classify(tensor_image)
 
     classifications = []
@@ -90,13 +96,13 @@ def classify(tensor_image):
     return result_dict
 
 
-def unpack_top_pred_pretty_text(result_dict):
+def unpack_top_pred_name_score(result_dict):
     top_pred = result_dict['classifications'][0][0]
     pred_score = top_pred['score']
     pred_name = top_pred['category_name']
 
-    prediction_text = f'{pred_name} - {pred_score}'
-    return prediction_text
+    #prediction_text = f'{pred_name} - {pred_score}'
+    return pred_name, pred_score
 
 
 

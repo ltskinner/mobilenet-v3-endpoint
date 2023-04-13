@@ -47,7 +47,44 @@
     <br>
   </div>
   <div class="left-right-div">
-    <h2>Request-driven Workflow</h2>
+    <h2>API Request Workflow</h2>
+    <h4>Using Python to access https://{HOST}<b>/predict</b></h4>
+    <pre><code>
+      import base64
+      import json                    
+      import requests
+      
+      api_url = 'http://127.0.0.1:8080/predict'
+
+      with open('./data/pheasant.jpg', "rb") as f:
+          im_bytes = f.read()
+      
+      im_b64 = base64.b64encode(im_bytes).decode("utf8")      
+      payload = json.dumps({
+          "image_b64": im_b64,    # required: b64 encoded image
+      })
+
+      headers = {'Content-type': 'application/json', 'Accept': 'text/plain'}
+
+      response = requests.post(api_url, data=payload, headers=headers)
+      data = response.json()
+    </code></pre>
+    <h4>Returns:</h4>
+    <pre><code>
+      {
+        'classifications': [
+            [
+                {
+                    'category_name': 'prairie chicken',
+                    'display_name': '',
+                    'index': 84,
+                    'score': 8.029284477233887,
+                },
+                ...
+            ],
+        ]
+    }
+    </code></pre>
   </div>
 
 </div>

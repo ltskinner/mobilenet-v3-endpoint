@@ -35,7 +35,7 @@ docker-build:
 docker-run-it-rm:
 	docker run -it -p 80:8000 --rm ltskinner/mnv3
 
-docker-run-detach::
+docker-run-detach:
 	# on everything holy
 	# 80:8000 grabs an app running on 8000 forwards to container 80
 	# -d means detach and run in background

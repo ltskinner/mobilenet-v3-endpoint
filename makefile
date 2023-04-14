@@ -16,13 +16,13 @@ install-test:
 lint-force:
 	isort .
 	black .
-	flake8 .
+	flake8 . --ignore=E501
 	pylint --disable=R,C,pointless-string-statement ./*.py ./tests
 
 lint-check:
 	isort . --check-only
 	black --check .
-	flake8 .
+	flake8 . --ignore=E501
 	pylint --disable=R,C,pointless-string-statement ./*.py ./tests
 
 test:

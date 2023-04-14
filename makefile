@@ -36,7 +36,12 @@ docker-push:
 	docker push mnv3:latest
 
 docker-run:
+	# on everything holy
+	# 80:8000 grabs an app running on 8000 forwards to container 80
 	docker run -d --name mnv3_app -p 80:8000 mnv3
+
+docker-stop:
+	docker stop mnv3_app
 
 docker-poll:
 	docker ps --format "table {{.Image}}\t{{.Status}}\t{{.Names}}\t{{.Ports}}"

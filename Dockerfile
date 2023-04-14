@@ -3,6 +3,7 @@ FROM python:3.9
 
 RUN apt-get update
 RUN apt-get -y install make
+RUN apt-get -y install libusb-1.0-0-dev
 
 RUN mkdir /home/mnv3
 

@@ -1,11 +1,11 @@
 
 import random
-
+import json
 
 from tflite_support.task import vision
 from tflite_support.task import core
 from tflite_support.task import processor
-
+from tflite_support import metadata as _metadata
 
 
 model_path = './models/lite-model_imagenet_mobilenet_v3_large_100_224_classification_5_metadata_1.tflite'
@@ -15,6 +15,16 @@ base_options = core.BaseOptions(file_name=model_path)
 classification_options = processor.ClassificationOptions(max_results=3)
 options = vision.ImageClassifierOptions(base_options=base_options, classification_options=classification_options)
 classifier = vision.ImageClassifier.create_from_options(options)
+
+
+displayer = _metadata.MetadataDisplayer.with_model_file(model_path)
+metadata_content = displayer.get_metadata_json()
+metadata_dict = json.loads(metadata_content)
+
+
+def get_model_metadata():
+    return metadata_dict
+
 
 
 def get_random_image_path():

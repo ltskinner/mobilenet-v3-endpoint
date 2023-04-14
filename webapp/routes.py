@@ -8,6 +8,7 @@ from io import BytesIO
 
 
 from .model import (
+    get_model_metadata,
     get_tensor_image_from_buf, classify_tensor_image,
     unpack_top_pred_name_score
 )
@@ -138,6 +139,11 @@ def predict():
     pred = classify_tensor_image(tensor_image)
 
     return pred
+
+@application.route("/metadata", methods=['GET'])
+def metadata():
+    metadata_dict = get_model_metadata()
+    return jsonify(metadata_dict)
 
 """
 @application.route("/")

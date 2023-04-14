@@ -4,9 +4,10 @@ numpy
 pandas
 
 # models
-tensorflow
+#tensorflow
 tflite-support
 
 # app
 Flask
 Pillow
+gunicorn

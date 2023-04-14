@@ -7,7 +7,7 @@ import base64
 from io import BytesIO
 
 
-from model import (
+from .model import (
     get_tensor_image_from_buf, classify_tensor_image,
     unpack_top_pred_name_score
 )
@@ -177,6 +177,3 @@ def predict():
     else:
         return render_template("index.html", prediction_text=prediction_text)
 """
-
-if __name__ == "__main__":
-    application.run(host="127.0.0.1", port=8080, debug=True)

@@ -1,19 +1,22 @@
-
-import random
 import json
+import random
 
-from tflite_support.task import vision
-from tflite_support.task import core
-from tflite_support.task import processor
 from tflite_support import metadata as _metadata
+from tflite_support.task import core, processor, vision
 
-
-model_path = './models/lite-model_imagenet_mobilenet_v3_large_100_224_classification_5_metadata_1.tflite'
+# this is retarded
+model_path = (
+    "./models/"
+    "lite-model_imagenet_mobilenet_v3_"
+    "large_100_224_classification_5_metadata_1.tflite"
+)
 
 # Initialization
 base_options = core.BaseOptions(file_name=model_path)
 classification_options = processor.ClassificationOptions(max_results=3)
-options = vision.ImageClassifierOptions(base_options=base_options, classification_options=classification_options)
+options = vision.ImageClassifierOptions(
+    base_options=base_options, classification_options=classification_options
+)
 classifier = vision.ImageClassifier.create_from_options(options)
 
 
@@ -26,23 +29,21 @@ def get_model_metadata():
     return metadata_dict
 
 
-
 def get_random_image_path():
-    shark_image_path = './data/shutterstock_derek_heasley_great_hammerhead_shark.jpg'
-    pheasant_image_path = './data/pheasant.jpg'
-    ibex_image_path = './data/ibex.jpg'
+    shark_image_path = "./data/shutterstock_derek_heasley_great_hammerhead_shark.jpg"
+    pheasant_image_path = "./data/pheasant.jpg"
+    ibex_image_path = "./data/ibex.jpg"
 
-    image_path = random.choice([
+    path_options = [
         shark_image_path,
         pheasant_image_path,
-        ibex_image_path
-    ])
+        ibex_image_path,
+    ]
+    image_path = random.choice(path_options)
     return image_path
 
 
-
 def get_tensor_image():
-    
     image_path = get_random_image_path()
 
     # https://www.tensorflow.org/lite/api_docs/python/tflite_support/task/vision/TensorImage
@@ -55,8 +56,6 @@ def get_tensor_image_from_buf(buf):
     return tensor_image
 
 
-
-
 def classify_tensor_image(tensor_image):
     classification_result = classifier.classify(tensor_image)
 
@@ -67,20 +66,16 @@ def classify_tensor_image(tensor_image):
         categories = []
         for category in classification.categories:
             pred_dict = {
-                'index': category.index,
-                'score': category.score,
-                'display_name': category.display_name,
-                'category_name': category.category_name,
+                "index": category.index,
+                "score": category.score,
+                "display_name": category.display_name,
+                "category_name": category.category_name,
             }
             categories.append(pred_dict)
-        
+
         classifications.append(categories)
-    
 
-    result_dict = {
-        'classifications': classifications
-    }
-
+    result_dict = {"classifications": classifications}
 
     """
     # result structure
@@ -115,17 +110,16 @@ def classify_tensor_image(tensor_image):
 
 
 def unpack_top_pred_name_score(result_dict):
-    top_pred = result_dict['classifications'][0][0]
-    pred_score = top_pred['score']
-    pred_name = top_pred['category_name']
+    top_pred = result_dict["classifications"][0][0]
+    pred_score = top_pred["score"]
+    pred_name = top_pred["category_name"]
 
-    #prediction_text = f'{pred_name} - {pred_score}'
+    # prediction_text = f'{pred_name} - {pred_score}'
     return pred_name, pred_score
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     tensor_image = get_tensor_image()
     result = classify_tensor_image(tensor_image)
-    print('-----------------')
+    print("-----------------")
     print(result)

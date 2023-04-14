@@ -38,7 +38,11 @@ docker-push:
 docker-run:
 	# on everything holy
 	# 80:8000 grabs an app running on 8000 forwards to container 80
-	docker run -d --name mnv3_app -p 80:8000 mnv3
+	# -d means detach and run in background
+	docker run -d --name mnv3_app -p 80:8000 ltskinner/mnv3
+
+docker-it-rm:
+	docker run -it -p 80:8000 --rm ltskinner/mnv3
 
 docker-stop:
 	docker stop mnv3_app

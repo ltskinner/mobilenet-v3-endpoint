@@ -30,10 +30,10 @@ test:
 	coverage report -m
 
 docker-build:
-	docker build -t mnv3 .
+	docker build -t ltskinner/mnv3:latest .
 
 docker-push:
-	docker push mnv3:latest
+	docker push ltskinner/mnv3:latest
 
 docker-run:
 	# on everything holy

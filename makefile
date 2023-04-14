@@ -28,3 +28,15 @@ lint-check:
 test:
 	coverage run -m pytest -vv ./tests
 	coverage report -m
+
+docker-build:
+	docker build -t mnv3 .
+
+docker-push:
+	docker push mnv3:latest
+
+docker-run:
+	docker run -d --name mnv3_app -p 80:8000 mnv3
+
+docker-poll:
+	docker ps --format "table {{.Image}}\t{{.Status}}\t{{.Names}}\t{{.Ports}}"
